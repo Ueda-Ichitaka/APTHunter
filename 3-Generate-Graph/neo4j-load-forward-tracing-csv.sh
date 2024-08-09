@@ -27,9 +27,9 @@ CYPHER_ARGS="-a $NEO4J_SERVER -u neo4j -p neo4jchanged"
 rm /var/lib/neo4j/import/*.csv
 
 ##### Working on forward.csv ##############
-INPUT_FILE='/home/x10/APTHUNT/reducer/log-reducer-master/parser/forward.csv'
+INPUT_FILE="$1/forward.csv"
 
-cp $INPUT_FILE $IMPORT_DIR/forward-edge.csv
+cp "$INPUT_FILE" "$IMPORT_DIR/forward-edge.csv"
 
 #MERGE (n1:SUBJECT {name: line[1]})
 #MERGE (n2:RESOURCE {name: line[4], inode: line[3]})

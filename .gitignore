@@ -1,6 +1,3 @@
-*.bin
-*.jar
-*.json
-*.pyc
 */subjects.csv
 */objects.csv
+/2-LogCore/parser/apthunter/

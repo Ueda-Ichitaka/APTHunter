@@ -1,0 +1,86 @@
+(apthunter) riru@vm-riru-01:~/APTHunter/APTHunter/4-Detection-Engine$ python3 detection_engine_APTHunt_DARPA.py
+2019-05-13 18:00:00-04:00
+2019-05-14 18:00:00-04:00
+I am APTHunt script
+Incoming_Connections
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, detection_details, threat_Score, certainity_Score]
+Index: []
+
+T1190 Exploit Public-Facing Applications (Initial Compromise)
+          host                  detection_timestamp                                     source  SYSCALL detection_details  threat_Score  certainity_Score
+0  ta1-trace-2  2019-05-14T10:21:33.000000000-04:00  sshd:DEF8FC47-7A9A-FBED-6B2A-08B2189BECCD  CONNECT  35.106.122.76:80           5.0              10.0
+
+T1571 Non_Standard_Port (Initial Compromise)
+          host                  detection_timestamp                                     source  SYSCALL detection_details  threat_Score  certainity_Score
+0  ta1-trace-2  2019-05-14T10:21:33.000000000-04:00  sshd:DEF8FC47-7A9A-FBED-6B2A-08B2189BECCD  CONNECT  35.106.122.76:80           5.0              10.0
+
+T1584-001 Domain_Hijaking
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, Intermediate_process, SYSCALL_2, IP Address, Count, threat_Score, certainity_Score]
+Index: []
+
+
+
+DEF8FC47-7A9A-FBED-6B2A-08B2189BECCD
+Countdown |████████████████████████████████| 1/1
+
+
+Establish Foothold
+Empty DataFrame
+Columns: [detection_timestamp]
+Index: []
+
+Internal Recon
+Empty DataFrame
+Columns: [First_Occurence, Last_Occurence, Count]
+Index: []
+
+Privilage Escalation
+T1055: Process Injection
+          host                  detection_timestamp            source         SYSCALL Target     Count  threat_Score  certainity_Score
+0  ta1-trace-2  2019-05-14T10:21:33.000000000-04:00              sshd  MODIFY_PROCESS   sshd  164703.0           5.0              10.0
+1  ta1-trace-2  2019-05-14T10:21:33.000000000-04:00        /etc/hosts  MODIFY_PROCESS   sshd     322.0           5.0              10.0
+2  ta1-trace-2  2019-05-14T10:21:33.000000000-04:00       /etc/shadow  MODIFY_PROCESS   sshd     322.0           5.0              10.0
+3  ta1-trace-2  2019-05-14T10:21:33.000000000-04:00       /etc/passwd  MODIFY_PROCESS   sshd    2898.0           5.0              10.0
+4  ta1-trace-2  2019-05-14T10:21:33.000000000-04:00  35.106.122.76:80  MODIFY_PROCESS   sshd     161.0           5.0              10.0
+
+T1068: Exploitation for Privilege Escalation
+Empty DataFrame
+Columns: [host, detection_timestamp, source, Intermediate_process, SYSCALL_2, Target, Count, threat_Score, certainity_Score]
+Index: []
+
+T1068: Exploitation for Privilege Escalation-2
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, Target, Count, threat_Score, certainity_Score]
+Index: []
+
+
+Lateral Movement
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, detection_details, threat_Score, certainity_Score]
+Index: []
+
+EXFIL PROV
+Empty DataFrame
+Columns: [First_Occurence, Last_Occurence, Count]
+Index: []
+
+EXFIL Internal
+Empty DataFrame
+Columns: [First_Occurence, Last_Occurence, Count]
+Index: []
+
+
+Cleanup Tracks
+Clear logs
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, detection_details, threat_Score, certainity_Score]
+Index: []
+
+Untrusted File RM
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, detection_details, threat_Score, certainity_Score]
+Index: []
+
+Time taken(seconds): 7.46153450012207
