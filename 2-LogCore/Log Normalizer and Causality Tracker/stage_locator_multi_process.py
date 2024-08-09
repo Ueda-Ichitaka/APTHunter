@@ -67,46 +67,17 @@ object_name = []
 
 fileList = []
 fileList = [
-'ta1-trace-2-e5-official-1.bin.json','ta1-trace-2-e5-official-1.bin.json.1']
-#'ta1-trace-2-e5-official-1.bin.132.json.1','ta1-trace-2-e5-official-1.bin.132.json',
-#'ta1-trace-2-e5-official-1.bin.131.json.1','ta1-trace-2-e5-official-1.bin.131.json',
-#'ta1-trace-2-e5-official-1.bin.130.json.1','ta1-trace-2-e5-official-1.bin.130.json',
-#'ta1-trace-2-e5-official-1.bin.129.json.1','ta1-trace-2-e5-official-1.bin.129.json']
-#fileList = ['ta1-trace-2-e5-official-1.bin.129.json.1']
+	'ta1-trace-2-e5-official-1.bin.json',
+	'ta1-trace-2-e5-official-1.bin.json.1',
+	'ta1-trace-2-e5-official-1.bin.55.json.1',
+	]
 
-#prepare file list
-#fileList = []
-# fileList.append('ta1-trace-1-e5-official-1.bin.json')
-# fileList.append('ta1-trace-1-e5-official-1.bin.json.1')
-# fileList.append('ta1-trace-1-e5-official-1.bin.json.2')
-for i in range(126,141):
-	fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json')
+for i in range(120,140):
+	#fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json')
 	fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json' + '.1')
 	#fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json' + '.2')
 
 
-
-## Log files are ready: from 120 t0 140
-
-
-#fileList = ['ta1-cadets-1-e5-official-2.bin.120.json.1', 'ta1-cadets-1-e5-official-2.bin.120.json',
-#'ta1-cadets-1-e5-official-2.bin.119.json.1', 'ta1-cadets-1-e5-official-2.bin.119.json',
-#'ta1-cadets-1-e5-official-2.bin.118.json.1', 'ta1-cadets-1-e5-official-2.bin.118.json',
-#'ta1-cadets-1-e5-official-2.bin.117.json.1', 'ta1-cadets-1-e5-official-2.bin.117.json',
-#'ta1-cadets-1-e5-official-2.bin.116.json.1', 'ta1-cadets-1-e5-official-2.bin.116.json',
-#'ta1-cadets-1-e5-official-2.bin.115.json.1', 'ta1-cadets-1-e5-official-2.bin.115.json',
-#'ta1-cadets-1-e5-official-2.bin.114.json.1', 'ta1-cadets-1-e5-official-2.bin.114.json',
-#'ta1-cadets-1-e5-official-2.bin.113.json.1', 'ta1-cadets-1-e5-official-2.bin.113.json',
-#'ta1-cadets-1-e5-official-2.bin.112.json.1', 'ta1-cadets-1-e5-official-2.bin.112.json',
-#'ta1-cadets-1-e5-official-2.bin.111.json.1', 'ta1-cadets-1-e5-official-2.bin.111.json',
-#'ta1-cadets-1-e5-official-2.bin.110.json.1', 'ta1-cadets-1-e5-official-2.bin.110.json',
-#'ta1-cadets-1-e5-official-2.bin.109.json.1', 'ta1-cadets-1-e5-official-2.bin.109.json',
-#'ta1-cadets-1-e5-official-2.bin.108.json.1', 'ta1-cadets-1-e5-official-2.bin.108.json',
-#'ta1-cadets-1-e5-official-2.bin.107.json.1', 'ta1-cadets-1-e5-official-2.bin.107.json',
-#'ta1-cadets-1-e5-official-2.bin.106.json.1', 'ta1-cadets-1-e5-official-2.bin.106.json',
-#'ta1-cadets-1-e5-official-2.bin.105.json.1', 'ta1-cadets-1-e5-official-2.bin.105.json',
-#'ta1-cadets-1-e5-official-2.bin.104.json.1', 'ta1-cadets-1-e5-official-2.bin.104.json',
-#'ta1-cadets-1-e5-official-2.bin.103.json.1', 'ta1-cadets-1-e5-official-2.bin.103.json']
 
 ### clearing Output files
 with open('backwards.csv', 'w') as outfile2:
