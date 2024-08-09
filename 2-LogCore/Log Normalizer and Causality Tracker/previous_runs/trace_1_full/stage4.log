@@ -1,0 +1,84 @@
+
+(apthunter) riru@vm-riru-01:~/APTHunter/APTHunter/4-Detection-Engine$ python3 detection_engine_APTHunt_DARPA.py
+2019-05-13 23:28:00-04:00
+2019-05-14 00:28:00-04:00
+I am APTHunt script
+Incoming_Connections
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, detection_details, threat_Score, certainity_Score]
+Index: []
+
+T1190 Exploit Public-Facing Applications (Initial Compromise)
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, detection_details, threat_Score, certainity_Score]
+Index: []
+
+T1571 Non_Standard_Port (Initial Compromise)
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, detection_details, threat_Score, certainity_Score]
+Index: []
+
+T1584-001 Domain_Hijaking
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, Intermediate_process, SYSCALL_2, IP Address, Count, threat_Score, certainity_Score]
+Index: []
+
+/home/riru/APTHunter/APTHunter/4-Detection-Engine/detection_engine_APTHunt_DARPA.py:206: DeprecationWarning: Using a driver after it has been closed is deprecated. Future versions of the driver will raise an error.
+  with driver.session() as session:
+
+
+Establish Foothold
+Empty DataFrame
+Columns: [detection_timestamp]
+Index: []
+
+Internal Recon
+Empty DataFrame
+Columns: [First_Occurence, Last_Occurence, Count]
+Index: []
+
+Privilage Escalation
+T1055: Process Injection
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, Target, Count, threat_Score, certainity_Score]
+Index: []
+
+T1068: Exploitation for Privilege Escalation
+Empty DataFrame
+Columns: [host, detection_timestamp, source, Intermediate_process, SYSCALL_2, Target, Count, threat_Score, certainity_Score]
+Index: []
+
+T1068: Exploitation for Privilege Escalation-2
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, Target, Count, threat_Score, certainity_Score]
+Index: []
+
+
+Lateral Movement
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, detection_details, threat_Score, certainity_Score]
+Index: []
+
+EXFIL PROV
+Empty DataFrame
+Columns: [First_Occurence, Last_Occurence, Count]
+Index: []
+
+EXFIL Internal
+Empty DataFrame
+Columns: [First_Occurence, Last_Occurence, Count]
+Index: []
+
+
+Cleanup Tracks
+Clear logs
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, detection_details, threat_Score, certainity_Score]
+Index: []
+
+Untrusted File RM
+Empty DataFrame
+Columns: [host, detection_timestamp, source, SYSCALL, detection_details, threat_Score, certainity_Score]
+Index: []
+
+Time taken(seconds): 1.6081287860870361

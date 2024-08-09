@@ -20,19 +20,19 @@ i =1
 DateFrom = 1523028060000000000
 DateTo   = 1523031000000000000
 with open('attack-initial-comp.json', 'w') as outfile:
-	with open('ta1-cadets-e3-official.json.2') as jsondata:
-	    for line in jsondata:
-		cdm_record = json.loads(line.strip())
-		cdm_record_type = cdm_record['datum'].keys()[0]
-		if  (cdm_record_type == "com.bbn.tc.schema.avro.cdm18.Event"):
-			cdm_record_values = cdm_record['datum'][cdm_record_type]
-			if (cdm_record_values["timestampNanos"] >= DateFrom and cdm_record_values["timestampNanos"] <= DateTo):
-				#   print("Record ", i,"is", cdm_record_values)
-				#    i = i + 1;
-				json.dump(cdm_record_values, outfile)
-				outfile.write(",\n")
-				print("Record ", i,"is", cdm_record_values)
-				i =i +1
+	with open('/home/riru/Engagement5/Data/trace/ta1-trace-2-e5-official-1.bin.json.2') as jsondata:
+		for line in jsondata:
+			cdm_record = json.loads(line.strip())
+			cdm_record_type = cdm_record['datum'].keys()[0]
+			if  (cdm_record_type == "com.bbn.tc.schema.avro.cdm20.Event"):
+				cdm_record_values = cdm_record['datum'][cdm_record_type]
+				if (cdm_record_values["timestampNanos"] >= DateFrom and cdm_record_values["timestampNanos"] <= DateTo):
+					#   print("Record ", i,"is", cdm_record_values)
+					#    i = i + 1;
+					json.dump(cdm_record_values, outfile)
+					outfile.write(",\n")
+					print("Record ", i,"is", cdm_record_values)
+					i =i +1
 
 print ("total number of records:", i)
 print ("Attack stage extracted successfuly")

@@ -65,7 +65,9 @@ process_cmd = ""
 object_UUID = []
 object_name = []
 
-#fileList = [
+fileList = []
+fileList = [
+'ta1-trace-2-e5-official-1.bin.json','ta1-trace-2-e5-official-1.bin.json.1']
 #'ta1-trace-2-e5-official-1.bin.132.json.1','ta1-trace-2-e5-official-1.bin.132.json',
 #'ta1-trace-2-e5-official-1.bin.131.json.1','ta1-trace-2-e5-official-1.bin.131.json',
 #'ta1-trace-2-e5-official-1.bin.130.json.1','ta1-trace-2-e5-official-1.bin.130.json',
@@ -73,10 +75,16 @@ object_name = []
 #fileList = ['ta1-trace-2-e5-official-1.bin.129.json.1']
 
 #prepare file list
-fileList = []
+#fileList = []
+# fileList.append('ta1-trace-1-e5-official-1.bin.json')
+# fileList.append('ta1-trace-1-e5-official-1.bin.json.1')
+# fileList.append('ta1-trace-1-e5-official-1.bin.json.2')
 for i in range(126,141):
 	fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json')
 	fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json' + '.1')
+	#fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json' + '.2')
+
+
 
 ## Log files are ready: from 120 t0 140
 
@@ -110,11 +118,11 @@ with open('backwards.csv', 'w') as outfile2:
 #with open('attack-initial-comp', 'w') as outfile:
 for log_file in fileList:
 	if(log_file.endswith('.json')):	
-		while not os.path.exists('/home/elasticsearch/TC-DAS/ta3-java-consumer/tc-bbn-kafka/' + log_file + '.1'):
+		while not os.path.exists('/home/riru/Engagement5/Data/trace/' + log_file + '.1'):
 			print(log_file + " is not ready yet ..., check back in 1 minute ...")
 			time.sleep(60)
 	elif(log_file.endswith('.json.1')):	
-		while not os.path.exists('/home/elasticsearch/TC-DAS/ta3-java-consumer/tc-bbn-kafka/' + log_file.replace('.json.1','.json.2')):
+		while not os.path.exists('/home/riru/Engagement5/Data/trace/' + log_file.replace('.json.1','.json.2')):
 			print(log_file + " is not ready yet ..., check back in 1 minute ...")
 			time.sleep(60)
 		
@@ -132,10 +140,13 @@ for log_file in fileList:
 			with open('./subjects_and_objects/' + log_file + '/' + 'objects.csv', 'w') as outfile2:
 				thewriter = csv.writer(outfile)
 				thewriter2 = csv.writer(outfile2)						
-				with open('/home/elasticsearch/TC-DAS/ta3-java-consumer/tc-bbn-kafka/' + log_file) as jsondata:		    
+				with open('/home/riru/Engagement5/Data/trace/' + log_file) as jsondata:
 					for line in (list(jsondata)):
-						cdm_record = json.loads(line.strip())			
-						cdm_record_type = cdm_record['datum'].keys()[0]			
+						cdm_record = json.loads(line.strip())
+						# print("")
+						# print(cdm_record)
+						# print("")
+						cdm_record_type = list(cdm_record['datum'].keys())[0]
 						cdm_record_values = cdm_record['datum'][cdm_record_type]	
 						#print ("should print object list")
 						#print (backward_object_list)
@@ -147,7 +158,11 @@ for log_file in fileList:
 								process_cmd = (cdm_record_values['cmdLine']['string']).encode('utf-8')	
 							except:	
 								process_cmd = "" 
-							thewriter.writerow([cdm_record_values['uuid'],cdm_record_values['properties']['map']['name'],process_cmd])
+
+							if 	cdm_record_values['properties'] is None:
+								thewriter.writerow([cdm_record_values['uuid'],'None',process_cmd])
+							else:
+								thewriter.writerow([cdm_record_values['uuid'],cdm_record_values['properties']['map']['name'],process_cmd])
 							#print process_UUID
 							#print process_name
 							#raw_input("Press Enter to continue...")		
@@ -155,7 +170,13 @@ for log_file in fileList:
 						elif (cdm_record_type == "com.bbn.tc.schema.avro.cdm20.FileObject"):
 							#object_UUID.append(cdm_record_values['uuid'])
 							#object_name.append(cdm_record_values['baseObject']['properties']['map']['path'])
-							thewriter2.writerow([cdm_record_values['uuid'],cdm_record_values['baseObject']['properties']['map']['path']])	
+							# print()
+							# print([cdm_record_values['uuid']])
+							# print()
+							if 	cdm_record_values['baseObject']['properties'] is None:
+								thewriter2.writerow([cdm_record_values['uuid'],'None'])
+							else:
+								thewriter2.writerow([cdm_record_values['uuid'],cdm_record_values['baseObject']['properties']['map']['path']])
 							#print object_UUID
 							#print object_name
 							#raw_input("Press Enter to continue...")		
@@ -272,10 +293,10 @@ for log_file in fileList:
 
 			print ("Extracting Events from:", log_file)
 			start_time_slice = time.time()
-			with open('/home/elasticsearch/TC-DAS/ta3-java-consumer/tc-bbn-kafka/' + log_file) as jsondata:		    
+			with open('/home/riru/Engagement5/Data/trace/' + log_file) as jsondata:
 				for line in reversed(list(jsondata)):
 					cdm_record = json.loads(line.strip())			
-					cdm_record_type = cdm_record['datum'].keys()[0]			
+					cdm_record_type = list(cdm_record['datum'].keys())[0]
 					cdm_record_values = cdm_record['datum'][cdm_record_type]	
 					#print ("should print object list")
 					#print (backward_object_list)
@@ -688,8 +709,14 @@ for log_file in fileList:
 			print(backward_object_path_length)
 			elapsed_time = time.time() - start_time_slice						
 			print("")
-			print ("Time taken (in munites) for processing ", log_file , "is:" , elapsed_time/60)
-			open('./extraction_proof/' + log_file, 'a').close()
+			print ("Time taken (in minutes) for processing ", log_file , "is:" , elapsed_time/60)
+			try:
+				# with open('./extraction_proof/' + log_file, 'x') as file:
+				# 	file.write("")
+				# 	file.close()
+				open('./extraction_proof/' + log_file, 'x').close()
+			except FileExistsError:
+				open('./extraction_proof/' + log_file, 'a').close()
 
 		
 

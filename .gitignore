@@ -1,3 +1,6 @@
-*/subjects.csv
-*/objects.csv
-/2-LogCore/parser/apthunter/
+*subjects.csv
+*objects.csv
+2-LogCore/parser/apthunter/
+
+
+2-LogCore/Log Normalizer and Causality Tracker/previous_runs/trace-2-129-132/subjects_and_objects/ta1-trace-2-e5-official-1.bin.129.json.1/objects.csv
