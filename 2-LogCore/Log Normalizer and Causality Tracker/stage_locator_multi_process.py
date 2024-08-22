@@ -17,23 +17,23 @@ import time
 
 start_time = time.time()
 start_time_slice = time.time()
-i =1
+i = 1
 # Open the existing JSON file for loading into a variable
 #Val = input("Enter value: \n")
 #DateFrom = 1523028060000000000
-DateFrom  = 1557842610159000000
+DateFrom  = 1557734400000000000   # 1557842610159000000
 #DateTo   = 1523031000000000000
-DateTo    = 1557843310159000000
+DateTo    = 1557993600000000000   # 1557843310159000000
 # here we start with object and do backward tracking: 
 #whoami object: 
 #In: ta1-cadets-1-e5-official-2.bin.100.json.1
 #key_object = "8FA40B6F-BAF5-AF51-B5BA-4F9291AFCEAC"
 #Output files: whoami_backwards.csv' and whoami_forward.csv'
 #key_object_cmd = "whoami"
-Recon = ["whoami", "hostname", "ps"]
-Exfil = ["/etc/passwd", "/etc/shadow", "/etc/hosts", "/etc/pwd.db"]
+Recon = ["whoami", "hostname", "ps", "cat", "who"]
+Exfil = ["/etc/passwd", "/etc/shadow", "/etc/hosts", "/etc/pwd.db", "scp"]
 InitComp = [""]
-InitComp_native_process = ["sshd", "ssh", "sendmail", "wget"]
+InitComp_native_process = ["sshd", "ssh", "sendmail", "wget", "scp", "firefox", "nginx"]
 PrivEscal_process = ["sudo", "su"]
 key_object = "null" 
 path_len = 0
@@ -69,11 +69,10 @@ fileList = []
 fileList = [
 	'ta1-trace-2-e5-official-1.bin.json',
 	'ta1-trace-2-e5-official-1.bin.json.1',
-	'ta1-trace-2-e5-official-1.bin.55.json.1',
 	]
 
-for i in range(120,140):
-	#fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json')
+for i in range(1,191):
+	fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json')
 	fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json' + '.1')
 	#fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json' + '.2')
 

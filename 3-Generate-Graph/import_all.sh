@@ -8,7 +8,7 @@ fi
 
 exec_dir=/home/riru/APTHunter/APTHunter/3-Generate-Graph
 events_dir=/home/riru/APTHunter/APTHunter/2-LogCore/Log\ Normalizer\ and\ Causality\ Tracker/extracted_events
-events_prev_dir=/home/riru/APTHunter/APTHunter/2-LogCore/Log\ Normalizer\ and\ Causality\ Tracker/previous_runs/trace/extracted_events
+events_prev_dir=/home/riru/APTHunter/APTHunter/2-LogCore/Log\ Normalizer\ and\ Causality\ Tracker/previous_runs/apthunter-trace/extracted_events
 
 cd "$exec_dir"
 

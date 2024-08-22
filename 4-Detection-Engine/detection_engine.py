@@ -35,7 +35,8 @@ threat_scrore = 0
 #Trusted_IP_Addresses_subnet = "128.55.12"
 Trusted_IP_Addresses_subnet = "192.168.8.135"
 #path_csv = "/home/x10/APTHUNT/reducer/log-reducer-master/parser/results/cadets_eng3_scenario7/1/"
-path_csv = "/home/riru/APTHunter/APTHunter/4-Detection-Engine/results/trace-6/"
+path_csv = "/home/riru/APTHunter/APTHunter/4-Detection-Engine/results/trace-2_120-140-55_" + time.time() + "/"
+#path_csv = "/home/riru/APTHunter/APTHunter/4-Detection-Engine/results/trace-6/"
 
 initial_comp_timestamp_list = []
 compromised_process_list = []
