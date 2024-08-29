@@ -39,9 +39,10 @@ driver = GraphDatabase.driver(
 	)
 
 
-threat_scrore = 0
-Trusted_IP_Addresses_subnet = "192.168.8.135"
-path_csv = "/home/riru/APTHunter/APTHunter/4-Detection-Engine/results/trace-2_full_darpa_" + str(time.time()) + "/"
+threat_score = 0
+Trusted_IP_Addresses_subnet = "128.55.12"
+#Trusted_IP_Addresses_subnet = "192.168.8.135"
+path_csv = "/home/riru/APTHunter/APTHunter/4-Detection-Engine/results/theia-1-1_full_darpa_" + str(time.time()) + "/"
 
 initial_comp_timestamp_list = []
 compromised_process_list = []
@@ -58,23 +59,23 @@ Send_Internal = pd.DataFrame({'host':[], 'detection_timestamp': [], 'source': []
 IntRecon = pd.DataFrame({'host':[], 'detection_timestamp': [], 'Compromised Process': [], 'Inter_process': [], 'SYSCALL_2': [], 'detection_details': [], 'threat_Score': [], 'certainity_Score': []})
 IntRecon_prov = pd.DataFrame({'host':[], 'detection_timestamp': [], 'source': [], 'Intermediate_process': [], 'SYSCALL_2': [], 'Recon': [], 'Count': [], 'threat_Score': [], 'certainity_Score': []})
 
-Portscan =
-Lateral_Movement =
+# Portscan =
+# Lateral_Movement =
 
 Priv_Escal = pd.DataFrame({'host':[], 'detection_timestamp': [], 'source': [], 'Intermediate_process': [], 'SYSCALL_2': [], 'Target': [], 'Count': [], 'threat_Score': [], 'certainity_Score': []})
 Proc_Inj = pd.DataFrame({'host':[], 'detection_timestamp': [], 'source': [], 'SYSCALL': [], 'Target': [], 'Count': [], 'threat_Score': [], 'certainity_Score': []})
 Priv_Escal_2 = pd.DataFrame({'host':[], 'detection_timestamp': [], 'source': [], 'SYSCALL': [], 'Target': [], 'Count': [], 'threat_Score': [], 'certainity_Score': []})
-Priv_Escal_SUP =
-Priv_Escal_Util =
-Priv_Escal_Task =
-Priv_Escal_Acc =
+# Priv_Escal_SUP =
+# Priv_Escal_Util =
+# Priv_Escal_Task =
+# Priv_Escal_Acc =
 
 Exfil = pd.DataFrame({'host':[], 'detection_timestamp': [], 'source': [], 'SYSCALL': [], 'detection_details': [], 'threat_Score': [], 'certainity_Score': []})
 Exfil_prov = pd.DataFrame({'host':[], 'detection_timestamp': [], 'Compromised Process': [], 'Intermediate_process': [], 'SYSCALL_3': [], 'exfil': [], 'Count': [], 'threat_Score': [], 'certainity_Score': []})
 Exfil_internal = pd.DataFrame({'host':[], 'detection_timestamp': [], 'Compromised Process': [], 'Intermediate_process': [], 'SYSCALL_3': [], 'exfil': [], 'Count': [], 'threat_Score': [], 'certainity_Score': []})
-Exfil_scp =
+#Exfil_scp = pd.DataFrame({'name_1':[], 'caption_1':[], 'syscall':[], 'name_2':[], 'caption_2':[], 'timestamp':[], 'threat_Score': [], 'certainity_Score': []})
 
-Impact_Shutdown =
+#Impact_Shutdown =
 
 Clear_logs = pd.DataFrame({'host':[], 'detection_timestamp': [], 'source': [], 'SYSCALL': [], 'detection_details': [], 'threat_Score': [], 'certainity_Score': []})
 Untrusted_File_RM = pd.DataFrame({'host':[], 'detection_timestamp': [], 'source': [], 'SYSCALL': [], 'detection_details': [], 'threat_Score': [], 'certainity_Score': []})
@@ -107,10 +108,10 @@ with driver.session() as session:
 		Trusted_Addresses = Trusted_IP_Addresses_subnet)
 
 	for record in result:
-		threat_scrore = 0
+		threat_score = 0
 		certainty_score = 0
 
-		Incoming_Connections = pd.concat([Incoming_Connections, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"]], 'SYSCALL': [record["syscall"]], 'detection_details': [record["caption_n2"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+		Incoming_Connections = pd.concat([Incoming_Connections, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"]], 'SYSCALL': [record["syscall"]], 'detection_details': [record["caption_n2"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
 
@@ -123,10 +124,10 @@ with driver.session() as session:
 		Trusted_Addresses = Trusted_IP_Addresses_subnet)
 
 	for record in result:
-		threat_scrore = 5		
+		threat_score = 5
 		certainty_score = 10		
 
-		Outgoing_Connections = pd.concat([Outgoing_Connections, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall"]], 'detection_details': [record["caption_n2"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+		Outgoing_Connections = pd.concat([Outgoing_Connections, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall"]], 'detection_details': [record["caption_n2"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
 
@@ -139,10 +140,10 @@ with driver.session() as session:
 		Trusted_Addresses = Trusted_IP_Addresses_subnet)
 
 	for record in result:
-		threat_scrore = 5		
+		threat_score = 5
 		certainty_score = 10
 		 			
-		T1571_Non_Standard_Port = pd.concat([T1571_Non_Standard_Port, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall"]], 'detection_details': [record["caption_n2"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+		T1571_Non_Standard_Port = pd.concat([T1571_Non_Standard_Port, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall"]], 'detection_details': [record["caption_n2"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
 
@@ -156,11 +157,11 @@ with driver.session() as session:
 		RETURN n1.host as host, n1.caption as caption, n1.name as name_1, r1.type as syscall, n2.caption as caption_n2, r2.type as syscall2, n3.caption as caption_n3, n2.name as name_n2, r2.timestamp as timestamp, count(n3) as count""")
 
 	for record in result:
-		threat_scrore = 5
+		threat_score = 5
 		certainty_score = 10
 		source_proc =  record["caption"] + ':' + record["name_1"]
 
-		Domain_Hijaking = pd.concat([Domain_Hijaking, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall"]], 'Intermediate_process': [record["caption_n2"]], 'SYSCALL_2': [record["syscall2"]], 'IP Address': [record["caption_n3"]], 'Count': [record["count"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+		Domain_Hijaking = pd.concat([Domain_Hijaking, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall"]], 'Intermediate_process': [record["caption_n2"]], 'SYSCALL_2': [record["syscall2"]], 'IP Address': [record["caption_n3"]], 'Count': [record["count"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 driver.close()  # close the driver object
 
@@ -216,44 +217,43 @@ with driver.session() as session:
 
 		# Establish FootHold
 		result = session.run("""MATCH p=(n1)-[r:SYSCALL*1..3]->(n2)-[r2:SYSCALL]->(n3)
-			WHERE n1.name = $process_condition AND r2.type =~'EXECUTE|FORK|CLONE' AND n3.caption =~ '/bin/.*' AND r2.timestamp >= $timestamp_condition
+			WHERE n1.name = $process_condition AND r2.type =~'EXECUTE|FORK|CLONE' AND n3.caption =~ '/bin/.*|/bin/bash|apt|apt-get|bash|browse|cat|chsh|cmp|dbus-daemon|dbus-launch|dpkg|dpkg-deb|env|find|firefox|fusermount|hostname|ionice|kill|ls|lsb_release|man|mandb|mv|nc|net|nice|nm|open|passwd|perl|pkexec|ps|run-parts|scp|script|sh|ssh|su|sudo|tar|test|thunderbird|top|tr|uxterm|vim|wall|wget|who|whoami|write|xauth|xterm|x-www-browser' AND r2.timestamp >= $timestamp_condition
 			RETURN n1.host as host, n1.caption as caption, n1.name as name_1, r2.type as syscall2, n3.caption as caption_n3, r2.timestamp as timestamp, count(n3) as count""",
 			timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
 
 		for record in result:
-			threat_scrore = 5		
+			threat_score = 5
 			certainty_score = 0
 			 			
-			FootHold = pd.concat([FootHold, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall2"]], 'detection_details': [record["caption_n3"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
-
+			FootHold = pd.concat([FootHold, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall2"]], 'detection_details': [record["caption_n3"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
 		# Drakon APT - Recon rule
 		## Sensitive commands
 		result = session.run("""MATCH p=(n1)-[r:SYSCALL*1..3]->(n2)-[r2:SYSCALL]->(n3)
-			WHERE n1.name = $process_condition AND r2.type =~'EXECUTE|FORK|CLONE' AND n3.caption =~ '/sbin/.*|/bin/.*|/usr/bin/.*|/usr/local/.*|/usr/sbin/.*|bash|sudo' AND r2.timestamp >= $timestamp_condition
+			WHERE n1.name = $process_condition AND r2.type =~'EXECUTE|FORK|CLONE' AND n3.caption =~ '/sbin/.*|/bin/.*|/usr/bin/.*|/usr/local/.*|/usr/sbin/.*|bash|sudo|anacron|apt|apt-get|bin|browse|cat|chsh|cmp|cron|dbus-daemon|dbus-launch|dhclient|dhclient-script|dpkg|dpkg-deb|dumpe2fs|env|etc|find|firefox|fsck|fusermount|hostname|init|insmod|ionice|kill|lib|logotate|ls|lsb_release|man|mandb|mv|nc|net|net|nice|nm|open|passwd|perl|pkexec|ps|resolvconf|run-parts|scp|script|service|su|sysctl|tar|test|thunderbird|top|tr|uxterm|vim|wall|wget|who|whoami|write|xauth|xterm|x-www-browser|wall|ls' OR n3.caption contains 'ls|wall|sudo|su|cat' AND r2.timestamp >= $timestamp_condition
 			RETURN n1.host as host, n1.caption as caption, n1.name as name_1, r2.type as syscall2, n2.caption as caption_2, n2.name as name_2, n3.caption as caption_3, localdatetime(r2.timestamp) as timestamp, count(n3) as count""", timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
 
 		for record in result:
-			threat_scrore = 2
+			threat_score = 2
 			certainty_score = 0
 
-			IntRecon = pd.concat([IntRecon, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'Compromised Process': [record["caption"] + ':' + record["name_1"]], 'Inter_process':[record["caption_2"] + ':' + record["name_2"]], 'SYSCALL_2': [record["syscall2"]], 'detection_details': [record["caption_3"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+			IntRecon = pd.concat([IntRecon, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'Compromised Process': [record["caption"] + ':' + record["name_1"]], 'Inter_process':[record["caption_2"] + ':' + record["name_2"]], 'SYSCALL_2': [record["syscall2"]], 'detection_details': [record["caption_3"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
-
+		# modified
 		# Reconaissance
 		## sensitive read for /etc/passwd, ...
 		result = session.run("""MATCH p=(n1)-[r:SYSCALL*1..3]->(n2)-[r2:SYSCALL]->(n3)
-			WHERE n1.name = $process_condition AND r2.type =~'READ|OPEN|MMAP' AND n3.caption =~ '/etc/.*' AND r2.timestamp >= $timestamp_condition
+			WHERE (n1.name = $process_condition AND r2.type =~'READ|OPEN|MMAP' AND n3.caption =~ '/etc/.*|passwd|hosts|shadow') OR ( r2.type =~ 'EXECUTE' AND n3.caption contains 'cat /etc/*') AND r2.timestamp >= $timestamp_condition
 			RETURN n1.host as host, n1.caption as caption, n1.name as name_1, r2.type as syscall2, n2.caption as caption_2, n3.caption as caption_3, localdatetime(r2.timestamp) as timestamp, count(n3) as count""",
 			timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
 
 		for record in result:
-			threat_scrore = 2
+			threat_score = 2
 			certainty_score = 0
 
-			IntRecon = pd.concat([IntRecon, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'Compromised Process': [record["caption"] + ':' + record["name_1"]], 'Inter_process':[record["caption_2"]], 'SYSCALL_2': [record["syscall2"]], 'detection_details': [record["caption_3"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+			IntRecon = pd.concat([IntRecon, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'Compromised Process': [record["caption"] + ':' + record["name_1"]], 'Inter_process':[record["caption_2"]], 'SYSCALL_2': [record["syscall2"]], 'detection_details': [record["caption_3"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
 
@@ -265,26 +265,42 @@ with driver.session() as session:
 # 			timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
 #
 # 		for record in result:
-# 			threat_scrore = 5
+# 			threat_score = 5
 # 			certainty_score = 10
 #
-# 			IntRecon = pd.concat([IntRecon, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'Compromised Process': [record["caption"] + ':' + record["name_1"]], 'Inter_process':[record["caption_2"]], 'SYSCALL_2': [record["syscall2"]], 'detection_details': [record["caption_3"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+# 			IntRecon = pd.concat([IntRecon, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'Compromised Process': [record["caption"] + ':' + record["name_1"]], 'Inter_process':[record["caption_2"]], 'SYSCALL_2': [record["syscall2"]], 'detection_details': [record["caption_3"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
 
-
+		# modified
 		# Privilege Escalation
 		## Privilege Escalation using sudo
 		result = session.run("""MATCH p=(n1)-[r:SYSCALL*1..3]->(n2)-[r2:SYSCALL]->(n3)
-			WHERE n2.caption =~ '/usr/bin/sudo|sudo' AND r2.type =~ 'EXECUTE' AND n1.name = $process_condition AND r2.timestamp >= $timestamp_condition
+			WHERE n2.caption =~ '/usr/bin/sudo|sudo|su' AND r2.type =~ 'EXECUTE' AND n1.name = $process_condition AND r2.timestamp >= $timestamp_condition
 			RETURN n3.host as host, n1.caption as caption,  n2.caption as caption_n2, r2.type as syscall_2, n3.caption as caption_n3, r2.timestamp as timestamp, count(n3) as count""",
 			timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
 
 		for record in result:
-			threat_scrore = 5
+			threat_score = 5
 			certainty_score = 10
 
-			Priv_Escal = pd.concat([Priv_Escal, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"]], 'SYSCALL_2': [record["syscall_2"]], 'Target': [record["caption_n3"]], 'Count': [record["count"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+			Priv_Escal = pd.concat([Priv_Escal, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"]], 'SYSCALL_2': [record["syscall_2"]], 'Target': [record["caption_n3"]], 'Count': [record["count"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
+
+
+
+		# Privilege Escalation
+		## Privilege Escalation using super user privileges
+		result = session.run("""MATCH p=(n1)-[r:SYSCALL*1..3]->(n2)-[r2:SYSCALL]->(n3)
+			WHERE r2.type =~ 'CHANGE_PRINCIPAL' AND n1.name = $process_condition AND r2.timestamp >= $timestamp_condition
+			RETURN n3.host as host, n1.caption as caption,  n2.caption as caption_n2, r2.type as syscall_2, n3.caption as caption_n3, r2.timestamp as timestamp, count(n3) as count""",
+			timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
+
+		for record in result:
+			threat_score = 5
+			certainty_score = 10
+
+			Priv_Escal = pd.concat([Priv_Escal, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"]], 'SYSCALL_2': [record["syscall_2"]], 'Target': [record["caption_n3"]], 'Count': [record["count"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
+
 
 
 
@@ -296,10 +312,30 @@ with driver.session() as session:
 			timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
 
 		for record in result:
-			threat_scrore = 5
+			threat_score = 5
 			certainty_score = 10		
 
-			Proc_Inj = pd.concat([Proc_Inj, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"]], 'SYSCALL': [record["syscall_2"]], 'Target': [record["caption_n2"]], 'Count': [record["count"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+			Proc_Inj = pd.concat([Proc_Inj, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"]], 'SYSCALL': [record["syscall_2"]], 'Target': [record["caption_n2"]], 'Count': [record["count"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
+
+
+
+
+		# Privilege Escalation
+		## T1055: Process injection
+		### modified version of the query above to work with tc-e5-trace-2
+		result = session.run("""MATCH p=(n1)-[r:SYSCALL]->(n2)
+			WHERE r.type =~ 'MODIFY_PROCESS' AND n2.name = $process_condition AND r.timestamp >= $timestamp_condition
+			RETURN n2.host as host, n1.caption as caption, n2.caption as caption_n2, n2.name as name_n2 , r.type as syscall, r.timestamp as timestamp, count(n2) as count""",
+			timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
+
+		for record in result:
+			threat_score = 5
+			certainty_score = 10
+
+			Proc_Inj = pd.concat([Proc_Inj, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"]], 'SYSCALL': [record["syscall"]], 'Target': [record["caption_n2"] + ":" + record["name_n2"]], 'Count': [record["count"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
+
+
+
 
 
 
@@ -312,10 +348,10 @@ with driver.session() as session:
 			RETURN n1.host as host, n1.caption as caption, n2.caption as caption_n2, r1.type as syscall, r1.timestamp as timestamp, count(n2) as count""")
 
 		for record in result:
-			threat_scrore = 5
+			threat_score = 5
 			certainty_score = 10		
 
-			Priv_Escal_2 = pd.concat([Priv_Escal_2, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"]], 'SYSCALL': [record["syscall"]], 'Target': [record["caption_n2"]], 'Count': [record["count"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+			Priv_Escal_2 = pd.concat([Priv_Escal_2, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"]], 'SYSCALL': [record["syscall"]], 'Target': [record["caption_n2"]], 'Count': [record["count"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
 
@@ -329,7 +365,7 @@ with driver.session() as session:
 		# 	timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
   #
 		# for record in result:
-		# 	threat_scrore = 5
+		# 	threat_score = 5
 		# 	certainty_score = 10
   #
 		# 	Priv_Escal_Util = pd.concat([Priv_Escal_Util, pd.DataFrame()],ignore_index=True)
@@ -346,7 +382,7 @@ with driver.session() as session:
 		# 	timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
   #
 		# for record in result:
-		# 	threat_scrore = 5
+		# 	threat_score = 5
 		# 	certainty_score = 10
   #
 		# 	Priv_Escal_SUP = pd.concat([Priv_Escal_SUP, pd.DataFrame()],ignore_index=True)
@@ -363,7 +399,7 @@ with driver.session() as session:
 		# 	timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
   #
 		# for record in result:
-		# 	threat_scrore = 5
+		# 	threat_score = 5
 		# 	certainty_score = 10
   #
 		# 	Priv_Escal_Task = pd.concat([Priv_Escal_Task, pd.DataFrame()],ignore_index=True)
@@ -381,7 +417,7 @@ with driver.session() as session:
 		# 	timestamp_condition = initial_comp_timestamp, process_condition = compromised_process)
   #
 		# for record in result:
-		# 	threat_scrore = 5
+		# 	threat_score = 5
 		# 	certainty_score = 10
   #
 		# 	Priv_Escal_Acc = pd.concat([Priv_Escal_Acc, pd.DataFrame()],ignore_index=True)
@@ -398,10 +434,10 @@ with driver.session() as session:
 			timestamp_condition = initial_comp_timestamp, process_condition = compromised_process, Trusted_Addresses = Trusted_IP_Addresses_subnet)
 
 		for record in result:
-			threat_scrore = 5		
+			threat_score = 5
 			certainty_score = 10
 			 			
-			Send_Internal = pd.concat([Send_Internal, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall2"]], 'detection_details': [record["caption_n3"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+			Send_Internal = pd.concat([Send_Internal, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall2"]], 'detection_details': [record["caption_n3"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
 
@@ -416,10 +452,10 @@ with driver.session() as session:
 			timestamp_condition = initial_comp_timestamp, process_condition = compromised_process, Trusted_Addresses = Trusted_IP_Addresses_subnet)
 
 		for record in result:
-			threat_scrore = 5		
+			threat_score = 5
 			certainty_score = 10
 			 			
-			Clear_logs = pd.concat([Clear_logs, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall2"]], 'detection_details': [record["caption_n3"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+			Clear_logs = pd.concat([Clear_logs, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall2"]], 'detection_details': [record["caption_n3"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
 
@@ -432,10 +468,10 @@ with driver.session() as session:
 			timestamp_condition = initial_comp_timestamp, process_condition = compromised_process, Trusted_Addresses = Trusted_IP_Addresses_subnet)
 
 		for record in result:
-			threat_scrore = 5		
+			threat_score = 5
 			certainty_score = 10
 			 			
-			Untrusted_File_RM = pd.concat([Untrusted_File_RM, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall2"]], 'detection_details': [record["caption_n3"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+			Untrusted_File_RM = pd.concat([Untrusted_File_RM, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'source': [record["caption"] + ':' + record["name_1"]], 'SYSCALL': [record["syscall2"]], 'detection_details': [record["caption_n3"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 			
 	bar.finish()
 
@@ -454,26 +490,26 @@ with driver.session() as session:
 			process_condition = row1['Compromised Process'].split(':')[1], Trusted_Addresses = Trusted_IP_Addresses_subnet)
 
 		for record in result:
-			threat_scrore = 5
+			threat_score = 5
 			certainty_score = 10		
 
-			Exfil_prov = pd.concat([Exfil_prov, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'Compromised Process': [record["caption"] + ':' + record["name_1"]], 'Intermediate_process':[record["caption_2"]], 'SYSCALL_3': [record["syscall_3"]], 'exfil': [record["caption_4"]], 'Count': [record["count"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+			Exfil_prov = pd.concat([Exfil_prov, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'Compromised Process': [record["caption"] + ':' + record["name_1"]], 'Intermediate_process':[record["caption_2"]], 'SYSCALL_3': [record["syscall_3"]], 'exfil': [record["caption_4"]], 'Count': [record["count"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
 
 		# Exfiltration
 		## Exfil using scp
 		### TODO: search with caption ssh or with process name or both?
-# 		result = session.run("""MATCH p=(n1)<-[r:SYSCALL*1..]-(n2)<-[r2:SYSCALL]-(n3)
-# 			WHERE n1.caption = 'sshd' AND (n2.caption = 'sshd' OR n2.caption = 'bash') AND n3.caption contains 'scp'
-# 			RETURN """,
-# 			process_condition_name = row1['Compromised Process'].split(':')[1], process_condition_caption = row1['Compromised Process'].split(':')[0], Trusted_Addresses = Trusted_IP_Addresses_subnet)
-#
-# 		for record in result:
-# 			threat_scrore = 5
-# 			certainty_score = 10
-#
-# 			Exfil_scp = pd.concat([Exfil_scp, pd.DataFrame()], ignore_index=True)
+		# result = session.run("""MATCH p=(n1)-[r:SYSCALL]->(n2)
+		# 	WHERE n1.caption contains 'scp' or n2.caption contains 'scp' AND r.timestamp >= $timestamp_condition
+		# 	RETURN n1.name as name_n1, n1.caption as caption_n1, r.type as syscall, n2.name as name_n2, n2.capion as caption_n2, r.timestamp as timestamp""",
+		# 	timestamp_condition = initial_comp_timestamp, Trusted_Addresses = Trusted_IP_Addresses_subnet)
+  #
+		# for record in result:
+		# 	threat_score = 5
+		# 	certainty_score = 10
+  #
+		# 	Exfil_scp = pd.concat([Exfil_scp, pd.DataFrame({'name_1':[record["name_n1"]], 'caption_1':[record["caption_n1"]], 'syscall':[record["syscall"]], 'name_2':[record["name_n2"]], 'caption_2':[record["caption_n2"]], 'timestamp':[record["timestamp"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})], ignore_index=True)
 
 
 
@@ -485,10 +521,10 @@ with driver.session() as session:
 			process_condition = row1['Compromised Process'].split(':')[1], Trusted_Addresses = Trusted_IP_Addresses_subnet)
 
 		for record in result:
-			threat_scrore = 5		
+			threat_score = 5
 			certainty_score = 10		
 
-			Exfil_internal = pd.concat([Exfil_internal, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'Compromised Process': [record["caption"] + ':' + record["name_1"]], 'Intermediate_process':[record["caption_2"]], 'SYSCALL_3': [record["syscall_3"]], 'exfil': [record["caption_4"]], 'Count': [record["count"]], 'threat_Score': [threat_scrore], 'certainity_Score': [certainty_score]})],ignore_index=True)
+			Exfil_internal = pd.concat([Exfil_internal, pd.DataFrame({'host':[record["host"]], 'detection_timestamp': [record["timestamp"]], 'Compromised Process': [record["caption"] + ':' + record["name_1"]], 'Intermediate_process':[record["caption_2"]], 'SYSCALL_3': [record["syscall_3"]], 'exfil': [record["caption_4"]], 'Count': [record["count"]], 'threat_Score': [threat_score], 'certainity_Score': [certainty_score]})],ignore_index=True)
 
 
 		
@@ -539,18 +575,18 @@ print("")
 print("T1068: Exploitation for Privilege Escalation-2")
 print(Priv_Escal_2.sort_values(by=['detection_timestamp'], ascending=False))
 print("")
-print("Super User Utilites")
-print(Priv_Escal_Util.sort_values(by=['detection_timestamp'], ascending=False))
-print("")
-print("Super User Privileges")
-print(Priv_Escal_SUP.sort_values(by=['detection_timestamp'], ascending=False))
-print("")
-print("Scheduled Task")
-print(Priv_Escal_Task.sort_values(by=['detection_timestamp'], ascending=False))
-print("")
-print("Valid Domain Account")
-print(Priv_Escal_Acc.sort_values(by=['detection_timestamp'], ascending=False))
-print("")
+# print("Super User Utilites")
+# print(Priv_Escal_Util.sort_values(by=['detection_timestamp'], ascending=False))
+# print("")
+# print("Super User Privileges")
+# print(Priv_Escal_SUP.sort_values(by=['detection_timestamp'], ascending=False))
+# print("")
+# print("Scheduled Task")
+# print(Priv_Escal_Task.sort_values(by=['detection_timestamp'], ascending=False))
+# print("")
+# print("Valid Domain Account")
+# print(Priv_Escal_Acc.sort_values(by=['detection_timestamp'], ascending=False))
+# print("")
 
 
 print("Lateral Movement")
@@ -563,6 +599,10 @@ print("")
 print("EXFIL Internal")
 print(Exfil_internal.groupby(['host','Compromised Process','Intermediate_process','SYSCALL_3','exfil']).agg(First_Occurence = ('detection_timestamp', 'min'), Last_Occurence=('detection_timestamp', 'max'), Count = ('detection_timestamp', 'nunique')).sort_values(by=['First_Occurence'], ascending=True))
 print("")
+# print("Exfiltration using scp")
+# print(Exfil_scp.sort_values(by=['timestamp'], ascending=True))
+# print("")
+
 
 print("Cleanup Tracks")
 print("Clear logs")
@@ -585,6 +625,7 @@ Priv_Escal_2.to_csv(path_csv+'Priv_Escal_2.csv',index=True)
 Send_Internal.to_csv(path_csv+'Send_Internal.csv',index=True)
 Exfil_prov.to_csv(path_csv+'Exfil_prov.csv',index=True)
 Exfil_internal.to_csv(path_csv+'Exfil_internal.csv',index=True)
+#Exfil_scp.to_csv(path_csv+'Exfil_scp.csv',index=True)
 Clear_logs.to_csv(path_csv+'Cleanup_Clear_logs.csv',index=True)
 Untrusted_File_RM.to_csv(path_csv+'Cleanup_Untrusted_File_RM.csv',index=True)
 

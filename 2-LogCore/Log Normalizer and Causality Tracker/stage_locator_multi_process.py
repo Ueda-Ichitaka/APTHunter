@@ -67,14 +67,24 @@ object_name = []
 
 fileList = []
 fileList = [
-	'ta1-trace-2-e5-official-1.bin.json',
-	'ta1-trace-2-e5-official-1.bin.json.1',
+	'ta1-theia-1-e5-official-1.bin.json',
+	'ta1-theia-1-e5-official-1.bin.json.1',
+#	'ta1-theia-1-e5-official-2.bin.json',
+#	'ta1-theia-1-e5-official-2.bin.json.1',
 	]
 
-for i in range(1,191):
-	fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json')
-	fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json' + '.1')
-	#fileList.append('ta1-trace-2-e5-official-1.bin.' + str(i) + '.json' + '.2')
+for i in range(1,3): #1,40
+	fileList.append('ta1-theia-1-e5-official-1.bin.' + str(i) + '.json')
+	fileList.append('ta1-theia-1-e5-official-1.bin.' + str(i) + '.json' + '.1')
+#	fileList.append('ta1-theia-1-e5-official-2.bin.' + str(i) + '.json')
+#	fileList.append('ta1-theia-1-e5-official-2.bin.' + str(i) + '.json' + '.1')
+	#fileList.append('ta1-theia-1-e5-official-1.bin.' + str(i) + '.json' + '.2')
+
+
+if not os.path.exists('./extraction_proof/'):
+	os.makedirs('./extraction_proof/')
+
+
 
 
 
@@ -87,14 +97,14 @@ with open('backwards.csv', 'w') as outfile2:
 ###################################################
 #with open('attack-initial-comp', 'w') as outfile:
 for log_file in fileList:
-	if(log_file.endswith('.json')):	
-		while not os.path.exists('/home/riru/Engagement5/Data/trace/' + log_file + '.1'):
-			print(log_file + " is not ready yet ..., check back in 1 minute ...")
-			time.sleep(60)
-	elif(log_file.endswith('.json.1')):	
-		while not os.path.exists('/home/riru/Engagement5/Data/trace/' + log_file.replace('.json.1','.json.2')):
-			print(log_file + " is not ready yet ..., check back in 1 minute ...")
-			time.sleep(60)
+	# if(log_file.endswith('.json')):
+	# 	while not os.path.exists('/home/riru/Engagement5/Data/theia/' + log_file + '.1'):
+	# 		print(log_file + " is not ready yet ..., check back in 1 minute ...")
+	# 		time.sleep(60)
+	# elif(log_file.endswith('.json.1')):
+	# 	while not os.path.exists('/home/riru/Engagement5/Data/theia/' + log_file.replace('.json.1','.json.2')):
+	# 		print(log_file + " is not ready yet ..., check back in 1 minute ...")
+	# 		time.sleep(60)
 		
 	print ("Working on:", log_file)
 	
@@ -110,7 +120,7 @@ for log_file in fileList:
 			with open('./subjects_and_objects/' + log_file + '/' + 'objects.csv', 'w') as outfile2:
 				thewriter = csv.writer(outfile)
 				thewriter2 = csv.writer(outfile2)						
-				with open('/home/riru/Engagement5/Data/trace/' + log_file) as jsondata:
+				with open('/home/riru/Engagement5/Data/theia/' + log_file) as jsondata:
 					for line in (list(jsondata)):
 						cdm_record = json.loads(line.strip())
 						# print("")
@@ -132,7 +142,12 @@ for log_file in fileList:
 							if 	cdm_record_values['properties'] is None:
 								thewriter.writerow([cdm_record_values['uuid'],'None',process_cmd])
 							else:
-								thewriter.writerow([cdm_record_values['uuid'],cdm_record_values['properties']['map']['name'],process_cmd])
+								try:
+									thewriter.writerow([cdm_record_values['uuid'],cdm_record_values['properties']['map']['name'],process_cmd])
+								except KeyError:
+									thewriter.writerow([cdm_record_values['uuid'],cdm_record_values['properties']['map']['path'],process_cmd])
+#								except:
+
 							#print process_UUID
 							#print process_name
 							#raw_input("Press Enter to continue...")		
@@ -146,7 +161,10 @@ for log_file in fileList:
 							if 	cdm_record_values['baseObject']['properties'] is None:
 								thewriter2.writerow([cdm_record_values['uuid'],'None'])
 							else:
-								thewriter2.writerow([cdm_record_values['uuid'],cdm_record_values['baseObject']['properties']['map']['path']])
+								try:
+									thewriter2.writerow([cdm_record_values['uuid'],cdm_record_values['baseObject']['properties']['map']['path']])
+								except:
+									thewriter2.writerow([cdm_record_values['uuid'],cdm_record_values['baseObject']['properties']['map']['filename']])
 							#print object_UUID
 							#print object_name
 							#raw_input("Press Enter to continue...")		
@@ -172,9 +190,9 @@ for log_file in fileList:
 	objects_UUID_list = []
 	objects_name_list = []
 
-#### 1- Read subjects and objects extracted from the base file: ta1-trace-2-e5-official-1.bin.json	
+#### 1- Read subjects and objects extracted from the base file: ta1-theia-1-e5-official-1.bin.json
 	print("Read Subject and Objects ...")	
-	with open('./subjects_and_objects/' + 'ta1-trace-2-e5-official-1.bin.json' + '/' + 'subjects.csv') as csv_file1:
+	with open('./subjects_and_objects/' + 'ta1-theia-1-e5-official-1.bin.json' + '/' + 'subjects.csv') as csv_file1:
 		csv_reader1 = csv.reader(csv_file1, delimiter=',')	  		
 		for row in csv_reader1:
 			process_UUID_list.append(row[0])
@@ -185,7 +203,7 @@ for log_file in fileList:
 			else:
 				process_cmd_list.append(row[2])
 		
-	with open('./subjects_and_objects/' + 'ta1-trace-2-e5-official-1.bin.json' + '/' + 'objects.csv') as csv_file2:
+	with open('./subjects_and_objects/' + 'ta1-theia-1-e5-official-1.bin.json' + '/' + 'objects.csv') as csv_file2:
 		csv_reader2 = csv.reader(csv_file2, delimiter=',')	  		
 		for row in csv_reader2:
 			objects_UUID_list.append(row[0])
@@ -263,7 +281,7 @@ for log_file in fileList:
 
 			print ("Extracting Events from:", log_file)
 			start_time_slice = time.time()
-			with open('/home/riru/Engagement5/Data/trace/' + log_file) as jsondata:
+			with open('/home/riru/Engagement5/Data/theia/' + log_file) as jsondata:
 				for line in reversed(list(jsondata)):
 					cdm_record = json.loads(line.strip())			
 					cdm_record_type = list(cdm_record['datum'].keys())[0]
@@ -395,7 +413,7 @@ for log_file in fileList:
 								except:
 									col5 = "null"
 							if (cdm_record['hostId'] == 'DF4AF963-C31C-DAFC-B5C6-D86F33322775'):
-								col6 = 'ta1-trace-2'						
+								col6 = 'ta1-theia-1'
 							else:
 								col6 = 'null'
 				
@@ -415,7 +433,7 @@ for log_file in fileList:
 						#	col4 = cdm_record_values['predicateObject']['com.bbn.tc.schema.avro.cdm20.UUID']
 						#	col5 = cdm_record_values['predicateObjectPath']['string']
 						#	if (cdm_record['hostId'] == 'A8370E61-8ECA-ACD4-5394-57E645AE3379'):
-						#		col6 = 'ta1-trace-2'						
+						#		col6 = 'ta1-theia-1'
 						#	else:
 						#		col6 = 'null'
 						#	thewriter.writerow([col1,col2,col3,col4,col5,col6])
@@ -440,7 +458,7 @@ for log_file in fileList:
 								col5 = "null"
 					
 							if (cdm_record['hostId'] == 'DF4AF963-C31C-DAFC-B5C6-D86F33322775'):
-								col6 = 'ta1-trace-2'						
+								col6 = 'ta1-theia-1'
 							else:
 								col6 = 'null'
 
@@ -466,7 +484,7 @@ for log_file in fileList:
 								col5 = "null"
 					
 							if (cdm_record['hostId'] == 'DF4AF963-C31C-DAFC-B5C6-D86F33322775'):
-								col6 = 'ta1-trace-2'						
+								col6 = 'ta1-theia-1'
 							else:
 								col6 = 'null'
 
@@ -494,7 +512,7 @@ for log_file in fileList:
 							except:
 								col5 = "null"
 							if (cdm_record['hostId'] == 'DF4AF963-C31C-DAFC-B5C6-D86F33322775'):
-								col6 = 'ta1-trace-2'						
+								col6 = 'ta1-theia-1'
 							else:
 								col6 = 'null'
 
@@ -521,7 +539,7 @@ for log_file in fileList:
 							except:
 								col5 = "null"
 							if (cdm_record['hostId'] == 'DF4AF963-C31C-DAFC-B5C6-D86F33322775'):
-								col6 = 'ta1-trace-2'						
+								col6 = 'ta1-theia-1'
 							else:
 								col6 = 'null'
 
@@ -564,7 +582,7 @@ for log_file in fileList:
 							except:
 								col5 = "null"
 							if (cdm_record['hostId'] == 'DF4AF963-C31C-DAFC-B5C6-D86F33322775'):
-								col6 = 'ta1-trace-2'						
+								col6 = 'ta1-theia-1'
 							else:
 								col6 = 'null'
 
@@ -589,7 +607,7 @@ for log_file in fileList:
 							except:
 								col5 = "null"
 							if (cdm_record['hostId'] == 'DF4AF963-C31C-DAFC-B5C6-D86F33322775'):
-								col6 = 'ta1-trace-2'						
+								col6 = 'ta1-theia-1'
 							else:
 								col6 = 'null'
 
@@ -614,7 +632,7 @@ for log_file in fileList:
 							except:
 								col5 = "null"
 							if (cdm_record['hostId'] == 'DF4AF963-C31C-DAFC-B5C6-D86F33322775'):
-								col6 = 'ta1-trace-2'						
+								col6 = 'ta1-theia-1'
 							else:
 								col6 = 'null'
 
@@ -640,7 +658,7 @@ for log_file in fileList:
 							except:
 								col5 = "null"
 							if (cdm_record['hostId'] == 'DF4AF963-C31C-DAFC-B5C6-D86F33322775'):
-								col6 = 'ta1-trace-2'						
+								col6 = 'ta1-theia-1'
 							else:
 								col6 = 'null'
 

@@ -198,4 +198,20 @@ This section holds the complete list of tasks to perform.
 
 4. Detection engine
 
-    This is the heart of APTHunter which implements the grammars presented in the paper as neo4j                                                                                        queries. Modify the output directory and execute it with `python3 detection_engine.py`
+    This is the heart of APTHunter which implements the grammars presented in the paper as neo4j                                                                                        queries. Modify the output directory and execute it with `python3 detection_engine.py` or `python3 detection_engine_DARPA.py`
+
+    There are some queries, that try to wildcard all binaries e.g. in the /bin/ directory. However, at least the TC-E5 dataset does not contain the full path of these binaries which means, these cyphers will not match datapoints which should be matched. The full list of binaries in these directories sum up to approx. 4k binaires, which are way too many, therefore there is a solution to this. We compiled lists of these binaries (the bins*.txt files in 2 LogCore) and a small bash script `get_bins.sh` which combs the dataset for occurances of these binaries and prints them to stdout for easy copy-paste to the query. If you need to re-do these lists:
+    ```
+    ls /sbin/ > bins.txt
+    ls /bin/ >> bins.txt
+    ls /usr/bin/ >> bins.txt
+    ls /usr/local/ >> bins.txt
+    ls /usr/sbin/ >> bins.txt
+
+    ls /usr/bin/ >> bins_foothold.txt
+
+    cat bins.txt | sort | uniq > APTHunter/2-LogCore/Log Normalizer and Causality Tracker/bins.txt
+    cat bins_foothold.txt | sort | uniq > APTHunter/2-LogCore/Log Normalizer and Causality Tracker/bins_foothold.txt
+    ```
+
+
