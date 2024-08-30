@@ -42,7 +42,7 @@ driver = GraphDatabase.driver(
 threat_score = 0
 Trusted_IP_Addresses_subnet = "128.55.12"
 #Trusted_IP_Addresses_subnet = "192.168.8.135"
-path_csv = "/home/riru/APTHunter/APTHunter/4-Detection-Engine/results/theia-1-1_full_darpa_" + str(time.time()) + "/"
+path_csv = "/home/riru/APTHunter/APTHunter/4-Detection-Engine/results/theia-1-2_full_darpa_" + str(time.time()) + "/"
 
 initial_comp_timestamp_list = []
 compromised_process_list = []

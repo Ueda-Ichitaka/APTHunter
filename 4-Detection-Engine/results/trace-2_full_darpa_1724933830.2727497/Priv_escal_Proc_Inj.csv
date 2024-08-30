@@ -1,0 +1,2 @@
+,host,detection_timestamp,source,SYSCALL,Target,Count,threat_Score,certainity_Score
+0,ta1-trace-2,2019-05-14T10:21:33.000000000-04:00,firefox,MODIFY_PROCESS,sshd:DEF8FC47-7A9A-FBED-6B2A-08B2189BECCD,161.0,5.0,10.0

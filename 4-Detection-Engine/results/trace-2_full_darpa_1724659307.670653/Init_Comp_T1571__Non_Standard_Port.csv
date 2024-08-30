@@ -1,2 +1,0 @@
-,host,detection_timestamp,source,SYSCALL,detection_details,threat_Score,certainity_Score
-0,ta1-trace-2,2019-05-14T10:21:33.000000000-04:00,sshd:DEF8FC47-7A9A-FBED-6B2A-08B2189BECCD,CONNECT,35.106.122.76:80,5.0,10.0
