@@ -63,28 +63,29 @@ class Parser(object):
 		au = auparse.AuParser(auparse.AUSOURCE_FILE, au_log)
 
 		while au.parse_next_event():
+			print (au.get_type_name())
 			if (au.get_type_name() == "USER_START"):
 					event = self.handle_USER_START(au)
-		#print (au.get_type_name())
-		#raw_input()
 			elif au.get_type() == 1300:
 				self.parse_syscall(au)
 			au.next_record()
 
 	def parse_syscall(self, au):
 		""" Parse a audit log.
-
 		Warning: Order of parsing matters.
 		"""
 		sysnum = au.find_field('syscall')
 		self.syscall = sys_table[sysnum]
 
 		#XXX. First syscall is the close() before the execve() for the tracing.
+		## no....
 		if self.first:
+			print(self.first)
 			self.first = False
 			return
 
-		#log.debug("Parsing syscall: {0}".format(self.syscall))
+		log.debug(self)
+		log.debug("Parsing syscall: {0}".format(self.syscall))
 		if self.syscall in ['open', 'openat', 'execve']:
 			event = self.handle_open(au)
 			#event = (ts, subject, self.syscall, resource, i_map[resource])
@@ -729,6 +730,7 @@ class Parser(object):
 
 
 def main():
+	print("starting parser..")
 	au_log = sys.argv[1]
 	#print (uuid.uuid1())
 	#raw_input("Press Enter to continue...")
